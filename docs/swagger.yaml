@@ -9,7 +9,12 @@ paths:
     get:
       consumes:
       - application/json
-      description: list all users
+      description: List all users
+      parameters:
+      - description: Search User by Name
+        in: query
+        name: search
+        type: string
       produces:
       - application/json
       responses:
@@ -23,7 +28,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: list all users
+      description: Detail user
       parameters:
       - description: User ID
         in: path
@@ -37,6 +42,13 @@ paths:
           description: string
           schema:
             type: string
+      security:
+      - Token: []
       tags:
       - users
+securityDefinitions:
+  Token:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

@@ -8,11 +8,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// @Description list all users
+// @Description List all users
 // @Tags users
 // @Accept json
 // @Produce json
 // @Success 200 {string} string "string"
+// @Param search query string false "Search User by Name"
 // @Router /users [get]
 func ListAllUsers(ctx *gin.Context) {
 	users, err := models.FindAllUsers()
@@ -29,12 +30,13 @@ func ListAllUsers(ctx *gin.Context) {
 	})
 }
 
-// @Description list all users
+// @Description Detail user
 // @Tags users
 // @Accept json
 // @Produce json
 // @Param id path int true "User ID"
 // @Success 200 {string} string "string"
+// @Security Token
 // @Router /users/{id} [get]
 func DetailUser(ctx *gin.Context) {
 	id, err := utils.GetPathInt(ctx, "id")
