@@ -1,4 +1,4 @@
-package api
+package main
 
 import (
 	"net/http"
@@ -8,12 +8,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var App *gin.Engine
+func main() {
+	app := gin.New()
 
-func init() {
-	App = gin.New()
-
-	router := App.Group("/")
+	router := app.Group("/")
 
 	router.GET("/", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, utils.Response{
@@ -23,8 +21,5 @@ func init() {
 	})
 
 	routers.CombineRouters(router)
-}
-
-func Handler(w http.ResponseWriter, r *http.Request) {
-	App.ServeHTTP(w, r)
+	app.Run(":8888")
 }
