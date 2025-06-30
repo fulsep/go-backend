@@ -42,3 +42,36 @@ func FindAllUsers() ([]User, error) {
 
 	return users, nil
 }
+
+func FindOneUser(id int) (User, error) {
+	db, err := utils.DBConnect()
+	if err != nil {
+		return User{}, err
+	}
+
+	defer func() {
+		db.Conn().Close(context.Background())
+	}()
+
+	rows, err := db.Query(
+		context.Background(),
+		`
+		SELECT id, email, password, created_at, updated_at
+		FROM users
+		WHERE id = $1
+		`,
+		id,
+	)
+
+	if err != nil {
+		return User{}, err
+	}
+
+	user, err := pgx.CollectOneRow[User](rows, pgx.RowToStructByName)
+
+	if err != nil {
+		return User{}, err
+	}
+
+	return user, nil
+}
