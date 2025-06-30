@@ -2,7 +2,6 @@ package utils
 
 import (
 	"context"
-	"fmt"
 	"os"
 
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -12,17 +11,18 @@ import (
 func DBConnect() (*pgxpool.Conn, error) {
 	godotenv.Load()
 
-	connectionString := fmt.Sprintf(
-		"postgres://%s:%s@%s:%s/%s",
-		os.Getenv("PGUSER"),
-		os.Getenv("PGPASSWORD"),
-		os.Getenv("PGHOST"),
-		os.Getenv("PGPORT"),
-		os.Getenv("PGDATABASE"),
-	)
-	pool, err := pgxpool.New(
+	// connectionString := fmt.Sprintf(
+	// 	"postgres://%s:%s@%s:%s/%s?sslmode=require&channel_binding=require",
+	// 	os.Getenv("PGUSER"),
+	// 	os.Getenv("PGPASSWORD"),
+	// 	os.Getenv("PGHOST"),
+	// 	os.Getenv("PGPORT"),
+	// 	os.Getenv("PGDATABASE"),
+	// )
+	pool, _ := pgxpool.New(
 		context.Background(),
-		connectionString,
+		// connectionString,
+		os.Getenv("DATABASE_URL"),
 	)
 
 	conn, err := pool.Acquire(context.Background())
