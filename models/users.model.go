@@ -9,11 +9,11 @@ import (
 )
 
 type User struct {
-	Id        int
-	Email     string
-	Password  string
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	Id        int       `json:"id"`
+	Email     string    `json:"email"`
+	Password  string    `json:"-"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
 }
 
 func FindAllUsers() ([]User, error) {
