@@ -8,6 +8,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @title           CRUD Users
+// @version         1.0
+// @description     This is a sample server celler server.
+// @BasePath /
+
 func main() {
 	app := gin.New()
 
